@@ -1,6 +1,5 @@
 
 import numpy as np 
-import matplotlib.pyplot as plt
 
 '''Newton-Raphson solver for changed variable u = sqrt(rho) - note that this is not entirely efficient,
 as it can settle on a solution with a very large residual when the initial guess is too low. It suits 
@@ -36,7 +35,7 @@ def rho_solver(k1, k2, d, sigma, r_p, r_gb, init_u=1, tol=1e-10, max_iter = 1000
         print("Solver did not converge")
         return None
 
-    #check residual so we now that it is a true solution 
+    #check residual so we know that it is a true solution 
     rho_sol = u**2 
 
     res =  (k1 * np.sqrt(rho_sol) + k2/d)*np.sinh(sigma - np.sqrt(rho_sol) - 1/d) - (r_p * rho_sol**2 + r_gb * rho_sol/d)
@@ -60,6 +59,5 @@ params = {
 rho_solution = rho_solver(**params)
 
 df_val = params["k1"] * np.sinh(params["sigma"] - np.sqrt(rho_solution) - 1/params["d"]) - (params["k1"] * np.sqrt(rho_solution) + params["k2"]/params["d"])*np.cosh(params["sigma"] - np.sqrt(rho_solution) - 1/params["d"]) - (4 * params["r_p"] * rho_solution**(3/2) + 2 * params["r_gb"] * np.sqrt(rho_solution)/params["d"])
-
 
 print(df_val)
