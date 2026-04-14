@@ -2,7 +2,12 @@
 import numpy as np 
 import matplotlib.pyplot as plt
 
-#Newton-Raphson solver for changed variable u = sqrt(rho) 
+'''Newton-Raphson solver for changed variable u = sqrt(rho) - note that this is not entirely efficient,
+as it can settle on a solution with a very large residual when the initial guess is too low. It suits 
+the needs we have, as when plotting the function f(u) = ...., we see that it has only two roots, 
+the trivial one and a positive one, which appears when init_u is set sufficiently high in 
+comparison to the applied stress/grain size. '''
+
 def rho_solver(k1, k2, d, sigma, r_p, r_gb, init_u=1, tol=1e-10, max_iter = 1000):
     
     u = init_u
